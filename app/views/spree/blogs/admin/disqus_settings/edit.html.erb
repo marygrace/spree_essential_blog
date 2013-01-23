@@ -8,6 +8,7 @@
     <%= label_tag(key, t("spree.blogs.settings.#{key}") + ': ') + tag(:br) if type != :boolean %>
     <%= preference_field_tag(key, @config[key], :type => type) %>
     <%= label_tag(key, t(key)) + tag(:br) if type == :boolean %>
+    <br>
   <% end %>
 
   <p class="form-buttons">
