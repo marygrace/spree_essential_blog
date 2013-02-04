@@ -1,10 +1,8 @@
 <div class="post-sidebar" data-hook="post-sidebar">
 
-  <h3><%= t('.recent_posts') %></h3>  
+  <h3><%= t('.recent_posts') %></h3>
   <%= render 'spree/blogs/shared/archive', :posts => @archive_posts %>
-  
-  <p class="more"><%= link_to t('.view_archive'), archive_posts_path(@blog) %></p>
-  
+
   <div class="post-categories" data-hook="post-categories">
     <h3><%= t('.categories') %></h3>
     <ul>
@@ -13,7 +11,7 @@
       <% end %>
     </ul>
   </div>
-  
+
   <div class="tag-cloud" data-hook="post-tag-cloud">
     <h3><%= t('.tags') %></h3>
     <ul class="tags">
@@ -22,5 +20,5 @@
       <% end %>
     </ul>
   </div>
-  
+
 </div>
