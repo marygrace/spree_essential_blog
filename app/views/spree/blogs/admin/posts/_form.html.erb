@@ -37,15 +37,3 @@
 <%= form.field_container :live do %>
   <%= form.check_box :live  %> <%= form.label :live, t("activerecord.attributes.post.live") %><br />
 <% end %>
-
-<% if config[:use_markdown] %>
-  <% content_for :head do %>
-    <script type="text/javascript">
-    //<![CDATA[
-      $(document).ready(function() {
-        $('#post_body').markItUp(markdownSettings);
-      });
-    //]]>
-    </script>
-  <% end %>
-<% end %>

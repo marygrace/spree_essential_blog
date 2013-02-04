@@ -1,12 +1,12 @@
 class Spree::Blogs::Admin::DisqusSettingsController < Spree::Admin::BaseController
 
   def show
-    @preferences = ['disqus_shortname', 'use_markdown']
+    @preferences = ['disqus_shortname', 'sharethis_publisher_id']
     @config = Spree::BlogConfiguration.new
   end
 
   def edit
-    @preferences = ['disqus_shortname', 'use_markdown']
+    @preferences = ['disqus_shortname', 'sharethis_publisher_id']
     @config = Spree::BlogConfiguration.new
   end
 

@@ -40,23 +40,13 @@ class Spree::Post < ActiveRecord::Base
   end
 
   def rendered_preview
-    config = Spree::BlogConfiguration.new
-    if config[:use_markdown]
-      preview = body.split("<!-- more -->")[0]
-    else
-      preview = body.split("<hr>")[0]
-    end
+    preview = body.split("<hr />")[0]
     render(preview)
   end
 
 
   def rendered_body
-    config = Spree::BlogConfiguration.new
-    if config[:use_markdown]
-      rendered = render(body.gsub("<!-- more -->", ""))
-    else
-      rendered = render(body)
-    end
+    rendered = render(body)
     rendered
   end
 
@@ -89,14 +79,7 @@ class Spree::Post < ActiveRecord::Base
 
     def render(val)
       val = val.is_a?(Symbol) ? send(val) : val
-
-      config = Spree::BlogConfiguration.new
-      if config[:use_markdown]
-        rendered = RDiscount.new(val).to_html.html_safe
-      else
-        rendered = val.html_safe
-      end
-      rendered
+      val.html_safe
     end
 
     def create_path
