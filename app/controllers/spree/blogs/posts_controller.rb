@@ -9,11 +9,14 @@ class Spree::Blogs::PostsController < Spree::BaseController
   def index
     @posts_by_month = default_scope.web.limit(50).group_by { |post| post.posted_at.strftime("%B %Y") }
     scope = default_scope.web
+    @breadcrumbs = [ [scope[0].blog.name, "/#{scope[0].blog.permalink}"] ]
     if params[:year].present?
+      @breadcrumbs << [params[:year], "/#{scope[0].blog.permalink}/#{params[:year].to_i}"]
       year  = params[:year].to_i
       month = 1
       day   = 1
       if has_month = params[:month].present?
+        @breadcrumbs << [Date::MONTHNAMES[params[:month].to_i], "/#{scope[0].blog.permalink}/#{params[:year].to_i}/#{params[:month].to_i}"]
         if has_day = params[:day].present?
           day  = params[:day].to_i
         end
@@ -35,12 +38,27 @@ class Spree::Blogs::PostsController < Spree::BaseController
   def search
 		query = params[:query].gsub(/%46/, '.')
 		@posts = default_scope.web.tagged_with(query).page(params[:page]).per(Spree::Post.per_page)
+		@breadcrumbs = [
+      [@posts[0].blog.name, "/#{@posts[0].blog.permalink}"],
+      ["Tags - #{query}", "#{request.protocol}#{request.host_with_port}#{request.fullpath}"]
+    ]
 		get_tags
 		render :template => 'spree/blogs/posts/index'
 	end
 
   def show
     @post = default_scope.web.includes(:tags, :images, :products).find_by_path(params[:id]) rescue nil
+    if !@post.nil?
+      @breadcrumbs = [
+        [@post.blog.name, "/#{@post.blog.permalink}"],
+        [@post.posted_at.year, "/#{@post.blog.permalink}/#{@post.posted_at.year}"],
+        [@post.posted_at.strftime("%B"), "/#{@post.blog.permalink}/#{@post.posted_at.year}/#{@post.posted_at.month}"],
+        [@post.title, spree.full_post_path(@post.blog, @post.year, @post.month, @post.day, @post.to_param)]
+      ]
+    else
+      @breadcrumbs = []
+    end
+
     return redirect_to archive_posts_path unless @post
   end
 
