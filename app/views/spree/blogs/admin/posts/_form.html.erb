@@ -20,9 +20,6 @@
 
 <%= form.field_container :body do %>
   <%= form.label :body, t("activerecord.attributes.post.body") %>
-  <% if config[:use_markdown] %>
-    <%= markdown_helper %>
-  <% end %>
   <br />
   <%= form.text_area :body  %>
   <%= error_message_on :post, :body %>
