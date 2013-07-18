@@ -1,4 +1,4 @@
-class Spree::Blogs::PostCategoriesController < Spree::BaseController
+class Spree::Blogs::PostCategoriesController < Spree::StoreController
 
   include SpreeEssentialBlog::PostsControllerHelper
 
