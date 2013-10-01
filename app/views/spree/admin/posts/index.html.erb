@@ -52,13 +52,13 @@
 <% if @collection.any? %>
   <table class="index">
     <thead>
-  	<tr>
-      	<th><%= sort_link @search, :title, t("activerecord.attributes.post.title") %></th>
-      	<th><%= sort_link @search, :blog,  t("activerecord.attributes.blog.model_name") %></th>
-      	<th><%= sort_link @search, :posted_at, t("activerecord.attributes.post.posted_at") %></th>
-      	<th><%= sort_link @search, :live, t("activerecord.attributes.post.live") %></th>
-      	<th data-hook="admin_posts_index_header_actions" class="actions"></th>
-  	</tr>
+      <tr data-hook="admin_blogs_index_headers">
+          <th><%= sort_link @search, :title, t("activerecord.attributes.post.title") %></th>
+          <th><%= sort_link @search, :blog,  t("activerecord.attributes.blog.model_name") %></th>
+          <th><%= sort_link @search, :posted_at, t("activerecord.attributes.post.posted_at") %></th>
+          <th><%= sort_link @search, :live, t("activerecord.attributes.post.live") %></th>
+          <th data-hook="admin_posts_index_header_actions" class="actions"></th>
+      </tr>
     </thead>
     <tbody>
       <%- @collection.each do |post|%>

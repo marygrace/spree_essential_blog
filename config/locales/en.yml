@@ -76,7 +76,7 @@ en:
       blogs: Manage Blogs
       explain_blogs: Add or Edit Blogs for posts.
       disqus: Disqus Settings
-      explain_disqus: Configure Disqus Comments for Blog.
+      explain_disqus: Disqus Comments Settings
       disqus_shortname: Disqus Shortname
     shared:
       sidebar:
