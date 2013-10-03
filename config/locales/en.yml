@@ -34,6 +34,10 @@ en:
       posts:
         new:
           new_post: New Blog Post
+        sidebar:
+          posted_at: Publish On
+          posted_in: Blog
+          published: Published
         index:
           new_post: New Blog Post
           listing_posts: Listing Blog Posts
