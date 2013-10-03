@@ -14,6 +14,11 @@
 
 <% if @collection.any? %>
   <table class="index">
+    <colgroup>
+      <col style="width: 42%">
+      <col style="width: 43%">
+      <col style="width: 15%">
+    </colgroup>
     <thead>
     <tr>
         <th><%= sort_link @search, :name, t("activerecord.attributes.blog.name") %></th>
