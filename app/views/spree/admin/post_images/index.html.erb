@@ -1,33 +1,47 @@
-<%= render :partial => 'spree/blogs/admin/shared/post_tabs', :locals => {:current => "Images"} %>
+<%= render :partial => 'spree/admin/shared/post_tabs', :locals => {:current => "Images"} %>
 
-<table class="index sortable" data-sortable-link="<%= update_positions_admin_post_images_url(@post) -%>">
-  <thead>
-    <tr>
-      <th><%= t("thumbnail") %></th>
-      <th><%= t("alt_text") %></th>
-      <th><%= t("action") %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @post.images.each do |image| %>
-      <tr id="<%= dom_id(image) %>">
-        <td><span class="handle">&nbsp;</span>&nbsp; <%= link_to(image_tag(image.attachment.url(:mini)), image.attachment.url(:large)) %></td>
-        <td><%= image.alt %></td>
-        <td class="actions">
-          <%= link_to_with_icon('edit', t("edit"), edit_admin_post_image_url(@post, image)) %>
-          &nbsp;
-          <%= link_to_delete image, {:url => admin_post_image_url(@post, image) }%>
-        </td>
+<% content_for :page_actions do %>
+  <li><%= link_to_with_icon('icon-plus', t(:new_image), new_admin_post_image_url(@post), :id => 'new_image_link', :class => 'button') %></li>
+<% end %>
+
+<div id="images" data-hook></div>
+
+<% unless @post.images.any? %>
+  <div class="no-objects-found">
+    <%= t(:no_images_found) %>.
+  </div>
+<% else %>
+  <table class="index sortable" data-hook="images_table" data-sortable-link="<%= update_positions_admin_post_images_url(@post) -%>">
+    <colgroup>
+       <col style="width: 5%">
+       <col style="width: 25%">
+       <col style="width: 55%">
+       <col style="width: 15%">
+    </colgroup>
+    <thead>
+      <tr>
+        <th colspan="2"><%= t("thumbnail") %></th>
+        <th><%= t("alt_text") %></th>
+        <th data-hook="admin_post_images_index_header_actions" class="actions"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @post.images.each do |image| %>
+        <tr id="<%= dom_id(image) %>">
+          <td class="no-border"><span class="handle"></span></td>
+          <td><%= link_to(image_tag(image.attachment.url(:small)), image.attachment.url(:large)) %></td>
+          <td><%= image.alt %></td>
+          <td class="actions" data-hook="admin_post_images_index_row_actions">
+            <%= link_to_with_icon 'icon-edit', t(:edit), edit_admin_post_image_path(@post, image), :no_text => true, :data => {:action => 'edit'} %>
+            &nbsp;
+            <%= link_to_delete image, :no_text => true, :url => admin_post_image_url(@post, image) %>
+          </td>
 
-<div id="images"></div>
-<br/>
-<p>
-    <%= link_to icon('add') + ' ' + t("new_image"), new_admin_post_image_url(@post), :id => "new_image_link" %>
-</p>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
 
 <% content_for :head do %>
   <script type="text/javascript">
