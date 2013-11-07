@@ -1,7 +1,7 @@
 class Spree::PossibleBlog
   def self.matches?(request)
     return false if request.path =~ /(^\/+(admin|account|cart|checkout|content|login|pg\/|orders|products|s\/|session|signup|shipments|states|t\/|tax_categories|user)+)/
-    !Spree::Blog.find_by_permalink(request.path).nil?
+    Spree::Page.active.find_by_path(request.path).nil? and !Spree::Blog.find_by_permalink(request.path).nil?
   end
 end
 
